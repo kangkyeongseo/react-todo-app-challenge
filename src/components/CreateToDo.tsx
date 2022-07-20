@@ -20,6 +20,7 @@ function CreateToDo() {
         ...oldToDos,
         [category]: [...oldToDos[category], newToDo],
       };
+      localStorage.setItem("toDos", JSON.stringify(newToDos));
       return newToDos;
     });
   };

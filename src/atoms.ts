@@ -1,4 +1,6 @@
 import { atom, selector } from "recoil";
+import { json } from "stream/consumers";
+import { isJSDocMemberName } from "typescript";
 
 export interface IToDo {
   text: string;
@@ -9,6 +11,11 @@ interface IToDos {
   [key: string]: IToDo[];
 }
 
+const defaultCategory = { TO_DO: [], DOING: [], DONE: [] };
+
+const getLocal =
+  localStorage.getItem("toDos") || JSON.stringify(defaultCategory);
+
 export const categoryState = atom({
   key: "category",
   default: "TO_DO",
@@ -16,7 +23,7 @@ export const categoryState = atom({
 
 export const toDoState = atom<IToDos>({
   key: "toDo",
-  default: { TO_DO: [], DOING: [], DONE: [] },
+  default: JSON.parse(getLocal),
 });
 
 export const toDoSelector = selector({

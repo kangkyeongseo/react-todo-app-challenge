@@ -17,6 +17,7 @@ function CreateCategory() {
         ...oldToDos,
         [category]: [],
       };
+      localStorage.setItem("toDos", JSON.stringify(newToDos));
       return newToDos;
     });
   };
