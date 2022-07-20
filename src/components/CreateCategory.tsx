@@ -8,7 +8,7 @@ interface ICategoryForm {
 
 function CreateCategory() {
   const setToDos = useSetRecoilState(toDoState);
-  const { register, handleSubmit } = useForm<ICategoryForm>();
+  const { register, handleSubmit, setValue } = useForm<ICategoryForm>();
   const setCategory = useSetRecoilState(categoryState);
   const onVaild = ({ category }: ICategoryForm) => {
     setCategory(category);
@@ -20,6 +20,7 @@ function CreateCategory() {
       localStorage.setItem("toDos", JSON.stringify(newToDos));
       return newToDos;
     });
+    setValue("category", "");
   };
   return (
     <form onSubmit={handleSubmit(onVaild)}>

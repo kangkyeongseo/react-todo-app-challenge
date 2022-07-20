@@ -9,7 +9,7 @@ interface IForm {
 function CreateToDo() {
   const [toDos, setToDos] = useRecoilState(toDoState);
   const category = useRecoilValue(categoryState);
-  const { register, handleSubmit } = useForm<IForm>();
+  const { register, handleSubmit, setValue } = useForm<IForm>();
   const handleValid = ({ todo }: IForm) => {
     const newToDo = {
       text: todo,
@@ -23,6 +23,7 @@ function CreateToDo() {
       localStorage.setItem("toDos", JSON.stringify(newToDos));
       return newToDos;
     });
+    setValue("todo", "");
   };
   return (
     <div>

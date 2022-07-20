@@ -24,6 +24,23 @@ function ToDo({ text, id }: IToDo) {
       return newToDos;
     });
   };
+  const deleteTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const newCategory = event.currentTarget.name;
+    setToDos((oldToDos) => {
+      const targetToDoIndex = oldToDos[category].findIndex(
+        (todo) => todo.id === id
+      );
+      const newToDos = {
+        ...oldToDos,
+        [category]: [
+          ...oldToDos[category].slice(0, targetToDoIndex),
+          ...oldToDos[category].slice(targetToDoIndex + 1),
+        ],
+      };
+      localStorage.setItem("toDos", JSON.stringify(newToDos));
+      return newToDos;
+    });
+  };
   return (
     <li>
       <span>{text}</span>
@@ -34,6 +51,7 @@ function ToDo({ text, id }: IToDo) {
             {todo}
           </button>
         ))}
+      <button onClick={deleteTodo}>❌</button>
     </li>
   );
 }
